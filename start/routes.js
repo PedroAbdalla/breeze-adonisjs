@@ -10,3 +10,6 @@ Route.post('files', 'FileController.store')
 
 //put
 Route.put('update', 'ForgotPasswordController.update')
+
+//get
+Route.get('files/:id', 'FileController.show')
