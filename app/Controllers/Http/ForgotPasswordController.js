@@ -46,7 +46,6 @@ class ForgotPasswordController {
             await user.save()
         } catch (err) {
             return response.status(err.status).send({error: 'Nao foi possível resetar sua senha.'})
-
         }
     }
 }

@@ -1,3 +1,4 @@
  adonis make:controller nomeController // criar controller
  adonis migration:rollback // desfazer migrations
  adonis migration:run // rodar migration
+ adonis make:model File -m -c  // criar um model -m / migration, -c / controller
