@@ -12,4 +12,12 @@ Route.post('files', 'FileController.store')
 Route.put('update', 'ForgotPasswordController.update')
 
 //get
-Route.get('files/:id', 'FileController.show')
+
+// rotas autenticadas
+Route.group(() => {
+    //get
+    Route.get('files/:id', 'FileController.show')
+    //crud
+    Route.resource('projects', 'ProjectController').apiOnly()
+
+}).middleware(['auth'])
