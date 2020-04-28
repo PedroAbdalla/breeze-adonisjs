@@ -12,7 +12,7 @@ class TaskSchema extends Schema {
                 .unsigned()
                 .notNullable()
                 .references('id') //chave estrangeira
-                .inTable('users') //tabela da chave
+                .inTable('projects') //tabela da chave
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE')
             table
