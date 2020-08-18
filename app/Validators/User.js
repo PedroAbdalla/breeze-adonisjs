@@ -1,6 +1,7 @@
 'use strict'
 
 class User {
+    //verifica todos os campos antes do retorno
     get validateAll () {
         return true
     }

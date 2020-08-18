@@ -23,9 +23,11 @@ class ExceptionHandler extends BaseExceptionHandler {
      * @return {void}
      */
     async handle(error, { request, response }) {
+        //se for erro de validação retorna a mensagem do erro
         if(error.name === 'ValidationException') {
             return response.status(error.status).send(error.messages)
         }
+        //caso estaja no dev envia o erro de forma detalhada
         if (Env.get('NODE_ENV') === 'development') {
             const youch = new Youch(error, request.request)
             const errorJson = await youch.toJSON()
@@ -45,6 +47,7 @@ class ExceptionHandler extends BaseExceptionHandler {
      * @return {void}
      */
     async report(error, { request }) {
+        console.log(error, request)
     }
 }
 
