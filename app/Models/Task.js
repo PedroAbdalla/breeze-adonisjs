@@ -4,6 +4,13 @@
 const Model = use('Model')
 
 class Task extends Model {
+    // esse metodo funciona com contrucor
+    static boot () {
+        super.boot()
+        //chamo o metodo sempre antes de salvar
+        this.addHook('afterCreate', 'TaskHook.sendNewTaskMail')
+        this.addHook('beforeUpdate', 'TaskHook.sendNewTaskMail')
+    }
     project () {
         return this.belongsTo('App/Models/Project') // o projeto pertene a um usuario
     }

@@ -2,4 +2,9 @@
  adonis migration:rollback // desfazer migrations
  adonis migration:run // rodar migration
  adonis make:model File -m -c  // criar um model -m / migration, -c / controller
- adonis make:validator nome_model
+ adonis make:validator nome_model // criar validador
+ adonis make:hook Task // criar observador 
+
+
+ //fila
+ adonis make:job NewTaskMail //cria um job
