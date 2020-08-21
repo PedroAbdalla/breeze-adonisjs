@@ -1,7 +1,7 @@
 'use strict'
 
 const Task = use('App/Models/Task')
-
+const fileController = use('App/Controllers/Http/FileController')
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -37,15 +37,26 @@ class TaskController {
      * @param {Response} ctx.response
      */
     async store({ params, request }) {
+        const fc = new fileController()        
         const data = request.only([
             'user_id',
-            'file_id',
             'title',
             'description',
             'due_date',
         ])
-        const task = await Task.create({ ...data, project_id: params.projects_id})
-        return task
+        const upload = request.file('file', {size: '2mb'})
+        if(upload){
+            const fileId = await fc.addProjectFile(upload)
+            const task = await Task.create({ 
+                ...data,
+                project_id: params.projects_id,
+                file_Id: fileId
+            })
+            return task
+        } else {
+            const task = await Task.create({ ...data, project_id: params.projects_id})
+            return task
+        }        
     }
 
     /**

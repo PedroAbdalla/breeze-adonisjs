@@ -7,7 +7,23 @@ class FileController {
         const file = await File.findOrFail(params.id)
         return response.download(Helpers.tmpPath(`uploads/${file.file}`))
     }
+    async addProjectFile(upload) {
+        const fileName = `${Date.now()}.${upload.subtype}`
+        await upload.move(Helpers.tmpPath('uploads'), {
+            name: fileName
+        })
 
+        if(!upload.moved()) {
+            throw upload.error()
+        }
+        const file = await File.create({
+            file: fileName,
+            name: upload.clientName,
+            type: upload.type,
+            subtype: upload.subtype
+        })
+        return file.id
+    }
     async store({ request, response }) {
         try {
             if(!request.file) return
